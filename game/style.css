@@ -1,0 +1,95 @@
+/* Elang Ridge Run — HUD styling: dark glass panels, amber accents, dense readouts. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #0a1420; }
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #eef4fa; }
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+.panel {
+  position: absolute;
+  background: rgba(8, 18, 30, 0.72);
+  border: 1px solid rgba(255, 179, 71, 0.45);
+  border-radius: 10px;
+  padding: 10px 12px;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+#missionCard { top: 14px; left: 14px; width: 340px; }
+.mission-title { font-weight: 800; letter-spacing: 0.06em; color: #ffb347; font-size: 15px; }
+.mission-detail { font-size: 13px; line-height: 1.45; margin-top: 5px; color: #dbe7f2; }
+.mission-row { display: flex; justify-content: space-between; margin-top: 7px; font-weight: 700; font-size: 14px; color: #ffd34d; }
+#compassPanel { top: 14px; left: 50%; transform: translateX(-50%); text-align: center; min-width: 430px; }
+#headingText { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: 0.1em; }
+#compassTape { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; color: #9fc3e8; letter-spacing: 0.05em; margin-top: 2px; white-space: nowrap; overflow: hidden; }
+#scorePanel { top: 14px; right: 14px; width: 230px; text-align: right; }
+.score-line { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.score-line span { color: #ffd34d; font-family: ui-monospace, Menlo, Consolas, monospace; }
+.score-line.small { font-size: 12px; color: #9fc3e8; font-weight: 600; }
+.gauge { margin: 6px 0 2px; }
+.gauge-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #cfe2f2; }
+.bar { height: 9px; background: rgba(255, 255, 255, 0.14); border-radius: 5px; overflow: hidden; margin-top: 2px; }
+.bar-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #37d67a, #9be15d); border-radius: 5px; transition: width 0.2s; }
+.bar-fill.thr { background: linear-gradient(90deg, #ff8c1a, #ffd34d); }
+.bar-fill.low { background: linear-gradient(90deg, #e5383b, #ff7a5c); }
+
+.tape { top: 42%; width: 128px; text-align: center; }
+#speedPanel { left: 14px; }
+#altPanel { right: 14px; }
+.tape-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; color: #9fc3e8; }
+.tape-value { font-size: 26px; font-weight: 800; font-family: ui-monospace, Menlo, Consolas, monospace; color: #fff; margin-top: 2px; }
+.tape-sub { font-size: 12px; color: #cfe2f2; margin-top: 2px; font-family: ui-monospace, Menlo, Consolas, monospace; }
+
+#attPanel { left: 14px; bottom: 14px; text-align: center; padding: 8px; }
+#attitude { display: block; border-radius: 50%; background: #0c1a28; }
+.att-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9fc3e8; margin-top: 4px; }
+#mapPanel { right: 14px; bottom: 14px; padding: 6px; }
+#minimap { display: block; border-radius: 6px; }
+
+#pills { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+.pill {
+  background: rgba(8, 18, 30, 0.72); border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em;
+}
+.pill.on { border-color: #37d67a; color: #7cf2a8; }
+
+#warnText {
+  position: absolute; top: 108px; left: 50%; transform: translateX(-50%);
+  background: rgba(120, 10, 10, 0.85); border: 1px solid #ff5c5c; border-radius: 8px;
+  padding: 8px 16px; font-weight: 800; font-size: 14px; letter-spacing: 0.05em; color: #ffe1e1;
+  animation: blink 0.9s steps(2) infinite;
+}
+@keyframes blink { 50% { opacity: 0.55; } }
+#toast {
+  position: absolute; bottom: 96px; left: 50%; transform: translateX(-50%);
+  background: rgba(8, 18, 30, 0.85); border: 1px solid #ffb347; border-radius: 8px;
+  padding: 9px 18px; font-size: 15px; font-weight: 700; color: #ffe9c4; white-space: nowrap;
+}
+
+#overlay {
+  position: fixed; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(6, 14, 24, 0.55), rgba(4, 10, 18, 0.88));
+}
+#overlay.hidden, .hidden { display: none !important; }
+.overlay-inner {
+  max-width: 640px; text-align: center; padding: 34px 40px;
+  background: rgba(8, 18, 30, 0.82); border: 1px solid rgba(255, 179, 71, 0.55);
+  border-radius: 16px; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+#overlayTitle { font-size: 40px; letter-spacing: 0.08em; color: #ffb347; margin-bottom: 12px; }
+.tagline { font-size: 17px; line-height: 1.55; color: #e6eef6; }
+.controls { margin-top: 14px; font-size: 14px; line-height: 1.7; color: #b9d2e8; }
+.controls b { color: #ffd34d; }
+.scoring { margin-top: 12px; font-size: 14px; color: #cfe2f2; }
+.big-score { margin-top: 14px; font-size: 26px; font-weight: 800; color: #ffd34d; font-family: ui-monospace, Menlo, Consolas, monospace; }
+#overlayHint { margin-top: 16px; font-size: 13px; color: #8fb4d4; letter-spacing: 0.06em; }
+#overlay button {
+  margin-top: 22px; pointer-events: auto; cursor: pointer;
+  background: linear-gradient(180deg, #ff8c1a, #e8622a); color: #fff; border: none;
+  font-size: 18px; font-weight: 800; letter-spacing: 0.08em;
+  padding: 13px 34px; border-radius: 10px; box-shadow: 0 4px 18px rgba(232, 98, 42, 0.5);
+}
+#overlay button:hover { filter: brightness(1.12); }
+
+/* Cockpit view: instruments grow, panels tighten so the gauges read as flown. */
+body.cockpit #attPanel { transform: scale(1.25); transform-origin: bottom left; }
+body.cockpit #mapPanel { transform: scale(0.92); transform-origin: bottom right; }

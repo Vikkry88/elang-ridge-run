@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elang Ridge Run — Volcano Courier Flight Game</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<canvas id="scene"></canvas>
+
+<div id="hud">
+  <!-- Top-left: mission card -->
+  <div class="panel" id="missionCard">
+    <div class="mission-title" id="missionTitle">✈ ELANG RIDGE RUN — VOLCANO COURIER</div>
+    <div class="mission-detail" id="missionDetail">Fly the orange rings, then land on Runway 18.</div>
+    <div class="mission-row"><span id="ringCount">0/8</span><span id="ringDist">RING 1 · — m</span></div>
+  </div>
+
+  <!-- Top-centre: compass tape -->
+  <div class="panel" id="compassPanel">
+    <div id="headingText">000°</div>
+    <div id="compassTape"></div>
+  </div>
+
+  <!-- Top-right: score, fuel, time -->
+  <div class="panel" id="scorePanel">
+    <div class="score-line">SCORE <span id="score">00000</span></div>
+    <div class="score-line">TIME <span id="timerText">00:00</span></div>
+    <div class="gauge"><div class="gauge-label" id="fuelText">FUEL 100%</div><div class="bar"><div class="bar-fill" id="fuelBar"></div></div></div>
+    <div class="gauge"><div class="gauge-label" id="throttleText">THR 0%</div><div class="bar"><div class="bar-fill thr" id="throttleBar"></div></div></div>
+    <div class="score-line small" id="windText">WIND 270°/8 KT</div>
+  </div>
+
+  <!-- Left tape: airspeed -->
+  <div class="panel tape" id="speedPanel">
+    <div class="tape-label">AIRSPEED</div>
+    <div class="tape-value" id="speedTape">0 KT</div>
+    <div class="tape-sub" id="vsiText">+0 FPM</div>
+  </div>
+
+  <!-- Right tape: altitude -->
+  <div class="panel tape" id="altPanel">
+    <div class="tape-label">ALTITUDE</div>
+    <div class="tape-value" id="altTape">0 FT</div>
+    <div class="tape-sub">QNH 1013 · AGL</div>
+  </div>
+
+  <!-- Bottom-left: attitude indicator -->
+  <div class="panel" id="attPanel">
+    <canvas id="attitude" width="150" height="150"></canvas>
+    <div class="att-label">ATTITUDE · ELANG-7</div>
+  </div>
+
+  <!-- Bottom-right: minimap -->
+  <div class="panel" id="mapPanel">
+    <canvas id="minimap" width="220" height="220"></canvas>
+  </div>
+
+  <!-- Bottom-centre: gear / camera pills -->
+  <div id="pills">
+    <span class="pill on" id="gearText">GEAR DOWN</span>
+    <span class="pill" id="flapText">CHASE CAM</span>
+  </div>
+
+  <!-- Warnings -->
+  <div id="warnText" class="hidden"></div>
+
+  <!-- Toasts -->
+  <div id="toast" class="hidden"></div>
+</div>
+
+<!-- Full-screen overlay: title / pause / crash / complete -->
+<div id="overlay">
+  <div class="overlay-inner">
+    <h1 id="overlayTitle">ELANG RIDGE RUN</h1>
+    <div id="overlayBody"></div>
+    <div id="overlayHint"></div>
+    <button id="startBtn">FLY THE ROUTE</button>
+    <button id="restartBtn" class="hidden">FLY AGAIN</button>
+  </div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
